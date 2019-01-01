@@ -1,0 +1,10 @@
+Express server listening on port 3000
+[0mGET / [32m200 [0m21.063 ms - 3481[0m
+[0mGET /stylesheets/blog.css [32m200 [0m1.084 ms - 1920[0m
+[0mGET /js/bootstrap.min.js [32m200 [0m2.025 ms - 51039[0m
+[0mGET /stylesheets/bootstrap.min.css [32m200 [0m4.979 ms - 140936[0m
+[0mGET /favicon.ico [33m404 [0m2.451 ms - 903[0m
+[0mGET / [32m200 [0m4.678 ms - 3495[0m
+[0mGET /stylesheets/bootstrap.min.css [36m304 [0m0.887 ms - -[0m
+[0mGET /js/bootstrap.min.js [36m304 [0m0.327 ms - -[0m
+[0mGET /stylesheets/blog.css [36m304 [0m0.248 ms - -[0m

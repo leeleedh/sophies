@@ -1,0 +1,9 @@
+Express server listening on port 3000
+[0mGET / [32m200 [0m18.011 ms - 3481[0m
+[0mGET /stylesheets/bootstrap.min.css [36m304 [0m1.815 ms - -[0m
+[0mGET /stylesheets/blog.css [36m304 [0m0.331 ms - -[0m
+[0mGET /js/bootstrap.min.js [36m304 [0m0.398 ms - -[0m
+[0mGET / [32m200 [0m4.693 ms - 3495[0m
+[0mGET /stylesheets/bootstrap.min.css [36m304 [0m0.353 ms - -[0m
+[0mGET /stylesheets/blog.css [36m304 [0m0.235 ms - -[0m
+[0mGET /js/bootstrap.min.js [36m304 [0m0.221 ms - -[0m
