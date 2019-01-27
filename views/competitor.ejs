@@ -68,36 +68,16 @@
     </tr>
   </thead>
   <tbody>
+      
+    <% for(var i=0;i<50;i++) { %>
     <tr>
-      <th scope="row">#1</th>
-      <td><%= noName[0] %></td>
-      <td><%= no[0] %>개</td>
-      <td><%= noCnt[0] %>개</td>
+      <th scope="row">#<%= i+1 %></th>
+      <td><%= noName[i] %></td>
+      <td><%= no[i] %>개</td>
+      <td><%= noCnt[i] %>개</td>
     </tr>
-    <tr>
-      <th scope="row">#2</th>
-      <td><%= noName[1] %></td>
-      <td><%= no[1] %>개</td>
-      <td><%= noCnt[1] %>개</td>
-    </tr>
-    <tr>
-      <th scope="row">#3</th>
-      <td><%= noName[2] %></td>
-      <td><%= no[2] %>개</td>
-      <td><%= noCnt[2] %>개</td>
-    </tr>
-    <tr>
-      <th scope="row">#4</th>
-      <td><%= noName[3] %></td>
-      <td><%= no[3] %>개</td>
-      <td><%= noCnt[3] %>개</td>
-    </tr>
-    <tr>
-      <th scope="row">#5</th>
-      <td><%= noName[4] %></td>
-      <td><%= no[4] %>개</td>
-      <td><%= noCnt[4] %>개</td>
-    </tr>
+    <% } %> 
+    
   </tbody>
 </table>
 <p class="blog-post-meta"><%=time %></p>
