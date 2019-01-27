@@ -6,7 +6,7 @@ var cron = require('node-cron');
 
 var mysql = require('mysql');
 var connection = mysql.createConnection({
-  host:'127.0.0.1',
+  host:'18.222.252.26',
   user:'root',
   password:'znvkdvkd',
   port:3306,
@@ -22,7 +22,8 @@ connection.connect();
 
 cron.schedule('*/10 * * * *',function(){
   temp = new Array();
-  var items = [3817967249,3817967255,3817967257,3817967260,3817967267];
+  var items = [3817967249,3817967255,3817967257,3817967260,3817967267, 4326375669, 4326375674, 4326375709, 4326375717, 4326375738, 4325880090];
+  var productItems = [110508311, 110508311, 110508311, 110508311, 110508311, 179824178, 179824178, 179824178, 179824178, 179824178, 179781012];
   var insertDate = new Date();
   var year = insertDate.getFullYear();
   var month = ''+(insertDate.getMonth()+1);
@@ -55,8 +56,9 @@ cron.schedule('*/10 * * * *',function(){
   }
 
 
-    for(var i=0;i<5;i++){
-      getJSON('http://capi.coupang.com/v3/products/110508311/vendor-items/'+items[i],function(err,res){
+    for(var i=0;i<11;i++){
+      //getJSON('http://capi.coupang.com/v3/products/110508311/vendor-items/'+items[i],function(err,res){
+      getJSON('http://capi.coupang.com/v3/products/'+productItems[i]+'/vendor-items/'+items[i],function(err,res){
 
         switch(res.rData.item.vendorItemId){
           case 3817967249:
@@ -84,6 +86,36 @@ cron.schedule('*/10 * * * *',function(){
             itemNum[0]=res.rData.item.remainCount;
             update('no5',itemNum);
             break;
+          case 4326375669:
+            var itemNum = new Array();
+            itemNum[0]=res.rData.item.remainCount;
+            update('no6',itemNum);
+            break;
+          case 4326375674:
+            var itemNum = new Array();
+            itemNum[0]=res.rData.item.remainCount;
+            update('no7',itemNum);
+            break;
+          case 4326375709:
+            var itemNum = new Array();
+            itemNum[0]=res.rData.item.remainCount;
+            update('no8',itemNum);
+            break;
+          case 4326375717:
+            var itemNum = new Array();
+            itemNum[0]=res.rData.item.remainCount;
+            update('no9',itemNum);
+            break;
+          case 4326375738:
+            var itemNum = new Array();
+            itemNum[0]=res.rData.item.remainCount;
+            update('no10',itemNum);
+            break;
+          case 4325880090:
+            var itemNum = new Array();
+            itemNum[0]=res.rData.item.remainCount;
+            update('no11',itemNum);
+            break;
         }
 
       });
@@ -98,10 +130,12 @@ router.get('/', function(req, res, next) {
 
 
   time = new Date();
-  var items = [3817967249,3817967255,3817967257,3817967260,3817967267];
-
-  for(var i=0;i<5;i++){
-    getJSON('http://capi.coupang.com/v3/products/110508311/vendor-items/'+items[i],function(err,res){
+  var items = [3817967249,3817967255,3817967257,3817967260,3817967267, 4326375669, 4326375674, 4326375709, 4326375717, 4326375738, 4325880090];
+  var productItems = [110508311, 110508311, 110508311, 110508311, 110508311, 179824178, 179824178, 179824178, 179824178, 179824178, 179781012];
+  
+  for(var i=0;i<11;i++){
+    //getJSON('http://capi.coupang.com/v3/products/110508311/vendor-items/'+items[i],function(err,res){
+      getJSON('http://capi.coupang.com/v3/products/'+productItems[i]+'/vendor-items/'+items[i],function(err,res){
 
       switch(res.rData.item.vendorItemId){
         case 3817967249:
@@ -118,6 +152,24 @@ router.get('/', function(req, res, next) {
           break;
         case 3817967267:
           no[4] = res.rData.item.remainCount;
+          break;
+        case 4326375669:
+          no[5] = res.rData.item.remainCount;
+          break;
+        case 4326375674:
+          no[6] = res.rData.item.remainCount;
+          break;
+        case 4326375709:
+          no[7] = res.rData.item.remainCount;
+          break;
+        case 4326375717:
+          no[8] = res.rData.item.remainCount;
+          break;
+        case 4326375738:
+          no[9] = res.rData.item.remainCount;
+          break;
+        case 4325880090:
+          no[10] = res.rData.item.remainCount;
           break;
       }
 
