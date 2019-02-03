@@ -23,7 +23,8 @@ var sellData = new Array();
 
 connection.connect();
 
-cron.schedule('*/* 6 * * *',function() {
+cron.schedule('0 */6 * * *',function() {
+//cron.schedule('*/1 * * * *',function() {
 
   temp = new Array();
   var vendorItems = [3593371503,3931570233,3070574242,3586134733,3716023112,4174142878,3775243899,4105108981,3978912301,4118334657,3300110490,3767455183,3699736959,4007569551,3193577018,3560069453,3626309637,3131010071,3097753880,3263385841,4138398343,3002041112,4026582127,3544608776,3870312492,3206189326,3915021687,3642455048,4027767726,3318365196,3488129392,3506236644,3880946567,3124096068,3793687902,3106789266,3203598484,3070574252,4033095719,3645973702,3069649680,3013094957,3550030220,3017954805,3951944950,3009674395,3071034336,4159933284,3105153828,3049525412];
@@ -72,15 +73,7 @@ cron.schedule('*/* 6 * * *',function() {
       
       sellData[i] = rows[1].stock - rows[0].stock;
 
-      var updateparam = new Array();
-      updateparam[0] = sellData[i];
-      updateparam[1] = tempId;
-
-      connection.query('UPDATE realcompetitor set nocnt=? where vendoritem=? ',updateparam,function(err,rows,fields) {
-        if(err){
-          console.log('Error.',err);
-        }
-      });
+      
       // console.log('I :  ', i);
       // console.log('ID :  ', tempId);
       // console.log('Sell Data ', sellData[i]);
@@ -103,6 +96,20 @@ cron.schedule('*/* 6 * * *',function() {
   for(var i=0; i < 50; i++) {
     getData(i,vendorItems[i]);
   }
+
+  for(var i=0;i<50;i++){
+    var updateparam = new Array();
+    updateparam[0] = sellData[i];
+    updateparam[1] = vendorItems[i];
+  
+    connection.query('UPDATE realcompetitor set nocnt=? where vendoritem=? ',updateparam,function(err,rows,fields) {
+      if(err){
+        console.log('Error.',err);
+      }
+    });
+  }
+  
+
 }).start();
 
 
