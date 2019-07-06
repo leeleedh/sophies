@@ -141,11 +141,14 @@ router.get('/', function(req, res, next) {
   options.addArguments('headless');
   options.addArguments('disable-gpu');
   options.addArguments('window-size=1920x1080');
-  options.addArguments('user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36');
+  options.addArguments('user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.90 Safari/537.36');
+  options.addArguments('lang=ko_KR');
   let driver = await new Builder().forBrowser('chrome').setChromeOptions(options).build();
   
   try {
     await driver.get('https://m.coupang.com/vm/v4/products/110508311/vendor-items/3817967249');
+    driver.executeScript("Object.defineProperty(navigator, 'plugins', {get: function() {return[1,2,3,4,5]}})");
+    driver.executeScript("Object.defineProperty(navigator, 'languages', {get: function() { return ['ko-KR', 'ko']}})");
     Promise.resolve(driver.getPageSource()).then((value=>{
       var $ = cheerio.load(value);
       var res = JSON.parse($('pre').text());
