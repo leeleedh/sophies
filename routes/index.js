@@ -58,8 +58,9 @@ cron.schedule('*/10 * * * *',function(){
 
     for(var i=0;i<11;i++){
       //getJSON('http://capi.coupang.com/v3/products/110508311/vendor-items/'+items[i],function(err,res){
-      getJSON('http://capi.coupang.com/v3/products/'+productItems[i]+'/vendor-items/'+items[i],function(err,res){
-
+      getJSON('https://m.coupang.com/vm/v4/products/'+productItems[i]+'/vendor-items/'+items[i],function(err,res){
+        if(res === undefined || res.rData === undefined)
+          return;
         switch(res.rData.item.vendorItemId){
           case 3817967249:
             var itemNum = new Array();
@@ -127,7 +128,7 @@ cron.schedule('*/10 * * * *',function(){
 
 
 router.get('/', function(req, res, next) {
-
+  console.log('hi');
 
   time = new Date();
   var items = [3817967249,3817967255,3817967257,3817967260,3817967267, 4326375669, 4326375674, 4326375709, 4326375717, 4326375738, 4325880090];
@@ -135,8 +136,10 @@ router.get('/', function(req, res, next) {
   
   for(var i=0;i<11;i++){
     //getJSON('http://capi.coupang.com/v3/products/110508311/vendor-items/'+items[i],function(err,res){
-      getJSON('http://capi.coupang.com/v3/products/'+productItems[i]+'/vendor-items/'+items[i],function(err,res){
-
+      
+      getJSON('https://m.coupang.com/vm/v4/products/'+productItems[i]+'/vendor-items/'+items[i],function(err,res){
+        if(res === undefined || res.rData === undefined)
+          return;
       switch(res.rData.item.vendorItemId){
         case 3817967249:
           no[0] = res.rData.item.remainCount;

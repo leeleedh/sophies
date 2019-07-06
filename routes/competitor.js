@@ -82,7 +82,9 @@ cron.schedule('0 */6 * * *',function() {
 
   var param = new Array();
   for(var i = 0; i< 50; i++) {
-    getJSON('http://capi.coupang.com/v3/products/'+productItems[i]+'/vendor-items/'+vendorItems[i],function(err,res){
+    getJSON('https://m.coupang.com/vm/v4/products/'+productItems[i]+'/vendor-items/'+vendorItems[i],function(err,res){
+      if(res === undefined || res.rData === undefined)
+          return;
         param[0] = res.rData.item.vendorItemId;
         param[1] = res.rData.item.itemName;
         param[2] = res.rData.item.remainCount;
@@ -133,8 +135,9 @@ router.get('/', function(req, res, next) {
 
 
 
-    getJSON('http://capi.coupang.com/v3/products/'+productItems[i]+'/vendor-items/'+vendorItems[i],function(err,res){
-      
+    getJSON('https://m.coupang.com/vm/v4/products/'+productItems[i]+'/vendor-items/'+vendorItems[i],function(err,res){
+      if(res === undefined || res.rData === undefined)
+          return;
       var param = new Array();
       //console.log("in1");
       param[0] = res.rData.item.itemName;
