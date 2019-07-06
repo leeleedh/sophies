@@ -137,7 +137,12 @@ router.get('/', function(req, res, next) {
   
 (async function example() {
   const screen = {width: 640, height:480};
-  let driver = await new Builder().forBrowser('chrome').setChromeOptions().build();
+  var options = new chrome.Options();
+  options.addArguments('headless');
+  options.addArguments('disable-gpu');
+  options.addArguments('window-size=1920x1080');
+  options.addArguments('user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36');
+  let driver = await new Builder().forBrowser('chrome').setChromeOptions(options).build();
   
   try {
     await driver.get('https://m.coupang.com/vm/v4/products/110508311/vendor-items/3817967249');
