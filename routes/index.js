@@ -22,7 +22,7 @@ var temp = new Array();
 
 connection.connect();
 
-cron.schedule('*/10 * * * *',function(){
+cron.schedule('*/2 * * * *',function(){
   temp = new Array();
   var items = [3817967249,3817967255,3817967257,3817967260,3817967267, 4326375669, 4326375674, 4326375709, 4326375717, 4326375738, 4325880090];
   var productItems = [110508311, 110508311, 110508311, 110508311, 110508311, 179824178, 179824178, 179824178, 179824178, 179824178, 179781012];
@@ -57,8 +57,103 @@ cron.schedule('*/10 * * * *',function(){
   });
   }
 
-
-    for(var i=0;i<11;i++){
+(async function example() {
+  const screen = {width: 640, height:480};
+  var options = new chrome.Options();
+  //options.addArguments('headless');
+  options.addArguments('disable-gpu');
+  options.addArguments('window-size=1920x1080');
+  options.addArguments('user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.90 Safari/537.36');
+  options.addArguments('lang=ko_KR');
+  let driver = await new Builder().forBrowser('chrome').setChromeOptions(options).build();
+  
+  try {
+    await driver.get('https://m.coupang.com/vm/v4/products/110508311/vendor-items/3817967249');
+    driver.executeScript("Object.defineProperty(navigator, 'plugins', {get: function() {return[1,2,3,4,5]}})");
+    driver.executeScript("Object.defineProperty(navigator, 'languages', {get: function() { return ['ko-KR', 'ko']}})");
+    Promise.resolve(driver.getPageSource()).then((value=>{
+      var $ = cheerio.load(value);
+      var res = JSON.parse($('pre').text());
+      no[0] = res.rData.item.remainCount;
+      update('no0',no[0]);
+    }));
+    await driver.get('https://m.coupang.com/vm/v4/products/110508311/vendor-items/3817967255');
+    Promise.resolve(driver.getPageSource()).then((value=>{
+      var $ = cheerio.load(value);
+      var res = JSON.parse($('pre').text());
+      no[1] = res.rData.item.remainCount;
+      update('no1',no[1]);
+    }));
+    await driver.get('https://m.coupang.com/vm/v4/products/110508311/vendor-items/3817967257');
+    Promise.resolve(driver.getPageSource()).then((value=>{
+      var $ = cheerio.load(value);
+      var res = JSON.parse($('pre').text());
+      no[2] = res.rData.item.remainCount;
+      update('no2',no[2]);
+    }));
+    await driver.get('https://m.coupang.com/vm/v4/products/110508311/vendor-items/3817967267');
+    Promise.resolve(driver.getPageSource()).then((value=>{
+      var $ = cheerio.load(value);
+      var res = JSON.parse($('pre').text());
+      no[3] = res.rData.item.remainCount;
+      update('no3',no[3]);
+    }));
+    await driver.get('https://m.coupang.com/vm/v4/products/110508311/vendor-items/3817967255');
+    Promise.resolve(driver.getPageSource()).then((value=>{
+      var $ = cheerio.load(value);
+      var res = JSON.parse($('pre').text());
+      no[4] = res.rData.item.remainCount;
+      update('no4',no[4]);
+    }));
+    await driver.get('https://m.coupang.com/vm/v4/products/179824178/vendor-items/4326375669');
+    Promise.resolve(driver.getPageSource()).then((value=>{
+      var $ = cheerio.load(value);
+      var res = JSON.parse($('pre').text());
+      no[5] = res.rData.item.remainCount;
+      update('no5',no[5]);
+    }));
+    await driver.get('https://m.coupang.com/vm/v4/products/179824178/vendor-items/4326375674');
+    Promise.resolve(driver.getPageSource()).then((value=>{
+      var $ = cheerio.load(value);
+      var res = JSON.parse($('pre').text());
+      no[6] = res.rData.item.remainCount;
+      update('no6',no[6]);
+    }));
+    await driver.get('https://m.coupang.com/vm/v4/products/179824178/vendor-items/4326375709');
+    Promise.resolve(driver.getPageSource()).then((value=>{
+      var $ = cheerio.load(value);
+      var res = JSON.parse($('pre').text());
+      no[7] = res.rData.item.remainCount;
+      update('no7',no[7]);
+    }));
+    await driver.get('https://m.coupang.com/vm/v4/products/179824178/vendor-items/4326375717');
+    Promise.resolve(driver.getPageSource()).then((value=>{
+      var $ = cheerio.load(value);
+      var res = JSON.parse($('pre').text());
+      no[8] = res.rData.item.remainCount;
+      update('no8',no[8]);
+    }));
+    await driver.get('https://m.coupang.com/vm/v4/products/179824178/vendor-items/4326375738');
+    Promise.resolve(driver.getPageSource()).then((value=>{
+      var $ = cheerio.load(value);
+      var res = JSON.parse($('pre').text());
+      no[9] = res.rData.item.remainCount;
+      update('no9',no[9]);
+    }));
+    await driver.get('https://m.coupang.com/vm/v4/products/179781012/vendor-items/4325880090');
+    Promise.resolve(driver.getPageSource()).then((value=>{
+      var $ = cheerio.load(value);
+      var res = JSON.parse($('pre').text());
+      no[10] = res.rData.item.remainCount;
+      update('no10',no[10]);
+    }));
+    
+  } finally {
+    await driver.quit();
+    res.render('newindex', { no: no, time: time });
+  }
+})();
+    /* for(var i=0;i<11;i++){
       //getJSON('http://capi.coupang.com/v3/products/110508311/vendor-items/'+items[i],function(err,res){
       getJSON('https://m.coupang.com/vm/v4/products/'+productItems[i]+'/vendor-items/'+items[i],function(err,res){
         if(res === undefined || res.rData === undefined)
@@ -122,7 +217,7 @@ cron.schedule('*/10 * * * *',function(){
         }
 
       });
-    }
+    } */
 }).start();
 
 
@@ -138,7 +233,7 @@ router.get('/', function(req, res, next) {
 (async function example() {
   const screen = {width: 640, height:480};
   var options = new chrome.Options();
-  options.addArguments('headless');
+  //options.addArguments('headless');
   options.addArguments('disable-gpu');
   options.addArguments('window-size=1920x1080');
   options.addArguments('user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.90 Safari/537.36');
@@ -153,12 +248,14 @@ router.get('/', function(req, res, next) {
       var $ = cheerio.load(value);
       var res = JSON.parse($('pre').text());
       no[0] = res.rData.item.remainCount;
+      console.log(no[0]);
     }));
     await driver.get('https://m.coupang.com/vm/v4/products/110508311/vendor-items/3817967255');
     Promise.resolve(driver.getPageSource()).then((value=>{
       var $ = cheerio.load(value);
       var res = JSON.parse($('pre').text());
       no[1] = res.rData.item.remainCount;
+      console.log(no[1]);
     }));
     await driver.get('https://m.coupang.com/vm/v4/products/110508311/vendor-items/3817967257');
     Promise.resolve(driver.getPageSource()).then((value=>{
@@ -220,57 +317,6 @@ router.get('/', function(req, res, next) {
     res.render('newindex', { no: no, time: time });
   }
 })();
-
-
-  for(var i=0;i<11;i++){
-    //getJSON('http://capi.coupang.com/v3/products/110508311/vendor-items/'+items[i],function(err,res){
-     
-      /*getJSON('https://m.coupang.com/vm/v4/products/'+productItems[i]+'/vendor-items/'+items[i],function(err,res){
-        if(res === undefined || res.rData === undefined){
-          console.log('err');
-          return;
-        }
-          
-      switch(res.rData.item.vendorItemId){
-        case 3817967249:
-          no[0] = res.rData.item.remainCount;
-          break;
-        case 3817967255:
-          no[1] = res.rData.item.remainCount;
-          break;
-        case 3817967257:
-          no[2] = res.rData.item.remainCount;
-          break;
-        case 3817967260:
-          no[3] = res.rData.item.remainCount;
-          break;
-        case 3817967267:
-          no[4] = res.rData.item.remainCount;
-          break;
-        case 4326375669:
-          no[5] = res.rData.item.remainCount;
-          break;
-        case 4326375674:
-          no[6] = res.rData.item.remainCount;
-          break;
-        case 4326375709:
-          no[7] = res.rData.item.remainCount;
-          break;
-        case 4326375717:
-          no[8] = res.rData.item.remainCount;
-          break;
-        case 4326375738:
-          no[9] = res.rData.item.remainCount;
-          break;
-        case 4325880090:
-          no[10] = res.rData.item.remainCount;
-          break;
-      }
-
-    });*/
-  }
-
-  //res.render('newindex', { no: no, time: time });
 
 });
 
